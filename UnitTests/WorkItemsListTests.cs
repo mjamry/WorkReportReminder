@@ -17,7 +17,7 @@ namespace UnitTests
         private const string COMMENT_CONTENT0 = null;
 
         [TestMethod]
-        public void ShouldCollectionBeEmpty()
+        public void ShouldNotContainAnyWorkItems()
         {
             //arrange
             const int EXP_COUNT = 0;
@@ -30,7 +30,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void ShouldSetCountToThreeWhenPassingThreeElements()
+        public void ShouldSetCountCorrectlyAfterAddingThreeItems()
         {
             //arrange
             const int EXP_COUNT = 3;
@@ -47,7 +47,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void ShouldReturnCountIncremented()
+        public void ShouldIncrementItemsCount()
         {
             //arrange
             const int EXP_COUNT = 1;
@@ -62,7 +62,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void ShouldCheckIfWorkItemEmptyWhenIndexBelowZero()
+        public void ShouldReturnWorkItemEmptyWhenIndexBelowZero()
         {
             //arrange
             WorkItem item = new WorkItem(1, "title", null);
@@ -80,7 +80,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void ShouldCheckIfWorkItemEmptyWhenCountEqualsZeroAndIndexBiggerThanZero()
+        public void ShouldReturnEmptyWorkItem()
         {
             //arrange
             WorkItemsList itemsList = new WorkItemsList();
@@ -97,7 +97,7 @@ namespace UnitTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void ShouldThrowException()
+        public void ShouldThrowExceptionWhenIndexIsOutOfRange()
         {
             //arrange
             WorkItem item = new WorkItem(1, "title", null);
@@ -110,7 +110,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void ShouldReturnFirstElement()
+        public void ShouldReturnFirstItemWhenUsingIndexerWithIndexZero()
         {
             //arrange
             WorkItem item = new WorkItem(1, "title", null);
@@ -126,8 +126,9 @@ namespace UnitTests
             Assert.AreEqual("title" , result.Title);
             Assert.AreEqual(null, result.Comments);
         }
+
         [TestMethod]
-        public void ShouldReturnTwoCountedElements() // count method
+        public void ShouldAddBothItems() // count method
         {
             //arrange
             const int EXP_COUNT = 2;
@@ -142,14 +143,15 @@ namespace UnitTests
             //assert
             Assert.AreEqual(EXP_COUNT, itemsList.Count);
         }
+
         [TestMethod]
-        public void ShouldReturnLastElement() //LastWorkItem, Two items added
+        public void ShouldReturnSecondItemWhenUsingLastItemProperty()
         {
             //arrange
-            WorkItem item = new WorkItem(1, "title", null);
+            WorkItem firstItem = new WorkItem(1, "title", null);
             WorkItem secondItem = new WorkItem(2, "newWI", null);
             WorkItemsList itemsList = new WorkItemsList();
-            itemsList.Add(item);
+            itemsList.Add(firstItem);
             itemsList.Add(secondItem);
 
             //act
@@ -160,8 +162,9 @@ namespace UnitTests
             Assert.AreEqual("newWI", result.Title);
             Assert.AreEqual(null, result.Comments);
         }
+
         [TestMethod]
-        public void ShouldReturnEmptyWorkItemWhenNoItemsAdded() 
+        public void ShouldReturnEmptyWorkItemWhenNoItemsWereAdded() 
         {
             //arrange
             WorkItemsList itemsList = new WorkItemsList();
